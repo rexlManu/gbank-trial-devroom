@@ -9,7 +9,7 @@ ormlite = "7.0-SNAPSHOT"
 invui = "1.27"
 
 # Plugins
-runpaper = "2.2.3"
+runpaper = "2.2.4"
 shadow = "8.1.1"
 lombok = "8.6"
 paperyml = "0.6.0"
