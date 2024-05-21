@@ -23,8 +23,8 @@ dependencies {
     library(libs.guice)
     library(libs.configlib)
     library(libs.bundles.cloud)
-//    implementation(libs.bundles.ormlite)
-//    implementation(libs.invui)
+    implementation(libs.bundles.ormlite)
+    implementation(libs.invui)
 }
 
 tasks {
@@ -40,7 +40,7 @@ tasks {
     }
     shadowJar {
         fun reloc(pkg: String, name: String) {
-            relocate(pkg, "$group.libs.$name")
+            relocate(pkg, "${project.group}.libs.$name")
         }
         archiveClassifier.set("")
         reloc("xyz.xenondevs.invui", "invui")
@@ -68,10 +68,10 @@ task<LaunchMinecraftServerTask>("testPlugin") {
     doFirst {
         copy {
             from(buildDir.resolve("libs/${project.name}-${project.version}.jar"))
-            into(buildDir.resolve("MinecraftServer/plugins"))
+            into(project.rootProject.file("run/plugins"))
         }
     }
-    serverDirectory.set(buildDir.resolve("MinecraftServer").absolutePath)
+    serverDirectory.set(project.rootProject.file("run").absolutePath)
     jarUrl.set(JarUrl.Paper("1.20.4"))
     agreeEula.set(true)
 }
@@ -79,7 +79,7 @@ task<LaunchMinecraftServerTask>("testPlugin") {
 paper {
     main = "$group.BasePlugin"
     loader = "$group.BasePluginLoader"
-    apiVersion = "1.19"
+    apiVersion = "1.20"
     author = "Emmanuel Lampe | rexlManu <mail@emmanuel-lampe.de>"
     generateLibrariesJson = true
 }
