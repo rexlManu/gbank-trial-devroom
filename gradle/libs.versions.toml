@@ -9,11 +9,11 @@ ormlite = "7.0-SNAPSHOT"
 invui = "1.27"
 
 # Plugins
-runpaper = "2.2.3"
+runpaper = "2.3.0"
 shadow = "8.1.1"
 lombok = "8.6"
 paperyml = "0.6.0"
-minecraftserver = "3.0.0"
+minecraftserver = "3.1.0"
 
 [libraries]
 paper = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
