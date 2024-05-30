@@ -3,6 +3,7 @@ package de.rexlmanu.gbank;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import de.rexlmanu.gbank.api.Economy;
 import de.rexlmanu.gbank.command.BalanceCommand;
 import de.rexlmanu.gbank.command.BankCommand;
 import de.rexlmanu.gbank.command.CommandContainer;
@@ -105,6 +106,8 @@ public class GBankPlugin extends JavaPlugin {
         BankUserService.class, this.bankUserService, this, ServicePriority.Normal);
     servicesManager.register(
         CurrencyService.class, this.currencyService, this, ServicePriority.Normal);
+    servicesManager.register(
+        Economy.class, this.injector.getInstance(Economy.class), this, ServicePriority.Normal);
   }
 
   @Override
