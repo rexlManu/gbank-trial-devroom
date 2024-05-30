@@ -8,6 +8,7 @@ import de.rexlmanu.gbank.currency.Currency;
 import de.rexlmanu.gbank.currency.CurrencyFormatter;
 import de.rexlmanu.gbank.notification.NotificationFactory;
 import de.rexlmanu.gbank.notification.NotificationService;
+import de.rexlmanu.gbank.tax.TaxService;
 import de.rexlmanu.gbank.user.BankUser;
 import de.rexlmanu.gbank.user.BankUserService;
 import java.util.concurrent.CompletableFuture;
@@ -27,6 +28,7 @@ public class PayCommand {
   private final Logger logger;
   private final NotificationService notificationService;
   private final NotificationFactory notificationFactory;
+  private final TaxService taxService;
 
   @Command(value = "pay <player> <currency> <amount>", requiredSender = Player.class)
   @Permission("gbank.command.pay")
@@ -48,7 +50,10 @@ public class PayCommand {
       return;
     }
 
-    if (!senderUser.wallet(currency).transfer(target.wallet(currency), amount)) {
+    if (!senderUser
+        .wallet(currency)
+        .transfer(
+            target.wallet(currency), amount, this.taxService.calculateTax(currency, amount))) {
       this.messageManager.send(sender, MessageConfig::notEnoughMoney);
       return;
     }

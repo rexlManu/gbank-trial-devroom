@@ -35,6 +35,13 @@ public class Wallet {
     return true;
   }
 
+  public boolean transfer(Wallet wallet, double amount, double tax) {
+    if (!this.has(amount)) return false;
+    this.take(amount);
+    wallet.give(amount - tax);
+    return true;
+  }
+
   public boolean withdraw(double amount) {
     if (!this.has(amount)) return false;
     this.take(amount);
