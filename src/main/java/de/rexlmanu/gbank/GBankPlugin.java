@@ -3,6 +3,7 @@ package de.rexlmanu.gbank;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import de.rexlmanu.gbank.api.ApiModule;
 import de.rexlmanu.gbank.api.Economy;
 import de.rexlmanu.gbank.command.BalanceCommand;
 import de.rexlmanu.gbank.command.BankCommand;
@@ -66,7 +67,8 @@ public class GBankPlugin extends JavaPlugin {
               this.configProvider.get(PluginConfig.class).storage().type().equals(StorageType.JSON)
                   ? new JsonStorageModule()
                   : new MySQLStorageModule(),
-              new BankUserCacheModule());
+              new BankUserCacheModule(),
+              new ApiModule());
       this.injector.injectMembers(this);
     } catch (Exception e) {
       log.error("Failed to enable plugin", e);
