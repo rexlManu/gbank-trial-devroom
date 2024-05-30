@@ -21,9 +21,9 @@ repositories {
 dependencies {
     compileOnly(libs.paper)
     library(libs.guice)
+    library(libs.hikaricp)
     library(libs.configlib)
     library(libs.bundles.cloud)
-    implementation(libs.bundles.ormlite)
     implementation(libs.invui)
 }
 
@@ -74,11 +74,16 @@ task<LaunchMinecraftServerTask>("testPlugin") {
     serverDirectory.set(project.rootProject.file("run").absolutePath)
     jarUrl.set(JarUrl.Paper("1.20.4"))
     agreeEula.set(true)
+    jvmArgument.set(
+        arrayListOf(
+            "-Dpaper.log-level=ALL",
+        )
+    )
 }
 
 paper {
-    main = "$group.BasePlugin"
-    loader = "$group.BasePluginLoader"
+    main = "$group.GBankPlugin"
+    loader = "$group.GBankPluginLoader"
     apiVersion = "1.20"
     author = "Emmanuel Lampe | rexlManu <mail@emmanuel-lampe.de>"
     generateLibrariesJson = true

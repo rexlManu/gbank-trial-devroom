@@ -7,6 +7,7 @@ cloud-annotations = "2.0.0-beta.4"
 configlib = "4.5.0"
 ormlite = "7.0-SNAPSHOT"
 invui = "1.27"
+hikaricp = "5.1.0"
 
 # Plugins
 runpaper = "2.3.0"
@@ -24,6 +25,7 @@ configlib = { module = "de.exlll:configlib-paper", version.ref = "configlib" }
 ormlite-core = { module = "com.j256.ormlite:ormlite-core", version.ref = "ormlite" }
 ormlite-jdbc = { module = "com.j256.ormlite:ormlite-jdbc", version.ref = "ormlite" }
 invui = { module = "xyz.xenondevs.invui:invui", version.ref = "invui" }
+hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "hikaricp" }
 
 [plugins]
 runpaper = { id = "xyz.jpenilla.run-paper", version.ref = "runpaper" }
