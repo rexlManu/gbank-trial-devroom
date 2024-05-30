@@ -11,7 +11,6 @@ import de.rexlmanu.gbank.notification.NotificationService;
 import de.rexlmanu.gbank.tax.TaxService;
 import de.rexlmanu.gbank.user.BankUser;
 import de.rexlmanu.gbank.user.BankUserService;
-import java.util.concurrent.CompletableFuture;
 import lombok.RequiredArgsConstructor;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.entity.Player;
@@ -50,13 +49,14 @@ public class PayCommand {
       return;
     }
 
-    if (!senderUser
-        .wallet(currency)
-        .transfer(
-            target.wallet(currency), amount, this.taxService.calculateTax(currency, amount))) {
+    double calculatedTax = this.taxService.calculateTax(currency, amount);
+
+    if (!senderUser.wallet(currency).transfer(target.wallet(currency), amount, calculatedTax)) {
       this.messageManager.send(sender, MessageConfig::notEnoughMoney);
       return;
     }
+
+    double receivedAmount = amount - calculatedTax;
 
     this.messageManager.send(
         sender,
@@ -66,7 +66,7 @@ public class PayCommand {
 
     this.notificationService.queue(
         this.notificationFactory.paymentReceived(
-            target.uniqueId(), amount, currency, senderUser.username()));
+            target.uniqueId(), receivedAmount, currency, senderUser.username()));
   }
 
   // limit amount to 2 decimal places
