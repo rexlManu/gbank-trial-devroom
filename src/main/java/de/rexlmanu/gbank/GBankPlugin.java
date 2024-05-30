@@ -3,12 +3,6 @@ package de.rexlmanu.gbank;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-import de.rexlmanu.gbank.storage.StorageType;
-import de.rexlmanu.gbank.storage.mysql.MySQLStorageModule;
-import de.rexlmanu.gbank.storage.mysql.user.MySQLBankUserStorage;
-import de.rexlmanu.gbank.user.BankUserStorage;
-import de.rexlmanu.gbank.user.cache.BankUserCache;
-import de.rexlmanu.gbank.user.cache.BankUserCacheModule;
 import de.rexlmanu.gbank.command.BalanceCommand;
 import de.rexlmanu.gbank.command.BankCommand;
 import de.rexlmanu.gbank.command.CommandContainer;
@@ -18,11 +12,17 @@ import de.rexlmanu.gbank.command.parser.CurrencyParser;
 import de.rexlmanu.gbank.config.ConfigProvider;
 import de.rexlmanu.gbank.config.PluginConfig;
 import de.rexlmanu.gbank.config.message.MessageConfig;
+import de.rexlmanu.gbank.currency.CurrencyGiveawayTask;
 import de.rexlmanu.gbank.currency.CurrencyService;
 import de.rexlmanu.gbank.notification.NotificationJoinDisplayListener;
+import de.rexlmanu.gbank.storage.StorageType;
 import de.rexlmanu.gbank.storage.json.JsonStorageModule;
+import de.rexlmanu.gbank.storage.mysql.MySQLStorageModule;
 import de.rexlmanu.gbank.user.BankUser;
 import de.rexlmanu.gbank.user.BankUserService;
+import de.rexlmanu.gbank.user.BankUserStorage;
+import de.rexlmanu.gbank.user.cache.BankUserCache;
+import de.rexlmanu.gbank.user.cache.BankUserCacheModule;
 import de.rexlmanu.gbank.user.listener.CreateOrUpdateJoiningPlayersListener;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
@@ -92,6 +92,11 @@ public class GBankPlugin extends JavaPlugin {
         CreateOrUpdateJoiningPlayersListener.class, NotificationJoinDisplayListener.class);
 
     this.setupServices();
+
+    this.getServer()
+        .getScheduler()
+        .runTaskTimerAsynchronously(
+            this, this.injector.getInstance(CurrencyGiveawayTask.class), 0, 20 * 10);
   }
 
   private void setupServices() {

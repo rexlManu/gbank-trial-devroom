@@ -30,6 +30,8 @@ public class MessageConfig {
   String balanceMenuOutput = "<gray>Balance: <green><amount>";
   String notificationPaymentReceived =
       "<gray>You have received <green><amount></green> from <aqua><username></aqua>.";
+  String currencyGiveawayReceived =
+      "<rainbow>Congratulations! You just got <amount> gifted from the server! Spend it wisely!";
 
   Map<String, String> commandParseErrors =
       Map.of(

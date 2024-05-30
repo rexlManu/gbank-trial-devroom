@@ -22,4 +22,8 @@ public class CurrencyService {
         .findFirst()
         .orElseThrow(CurrencyNotFoundException::new);
   }
+
+  public Currency random() {
+    return this.currencies().get((int) (Math.random() * this.currencies().size()));
+  }
 }

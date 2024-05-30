@@ -1,5 +1,6 @@
 package de.rexlmanu.gbank.tax;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import de.rexlmanu.gbank.config.ConfigProvider;
 import de.rexlmanu.gbank.config.PluginConfig;
@@ -7,7 +8,7 @@ import de.rexlmanu.gbank.currency.Currency;
 import lombok.RequiredArgsConstructor;
 
 @Singleton
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor_ = @Inject)
 public class TaxService {
   private final ConfigProvider configProvider;
 
